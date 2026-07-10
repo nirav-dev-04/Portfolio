@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
+@theme {
+  --color-blueprint-bg: #0B0E14;
+  --color-blueprint-surface: #121722;
+  --color-blueprint-border: #1F2733;
+  --color-blueprint-amber: #E8A33D;
+  --color-blueprint-teal: #4FD1C5;
+  --color-blueprint-text-primary: #EDEFF3;
+  --color-blueprint-text-secondary: #8892A0;
+  --color-blueprint-danger: #E8615D;
+
+  --font-display: var(--font-space-grotesk), monospace;
+  --font-body: var(--font-inter), sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0B0E14;
+  color: #EDEFF3;
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0E14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1F2733;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E8A33D;
+}
+
+/* Blueprint Grid Background Pattern */
+.blueprint-grid-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
+  background-color: #0B0E14;
+  background-image: 
+    linear-gradient(to right, rgba(31, 39, 51, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 39, 51, 0.4) 1px, transparent 1px),
+    linear-gradient(to right, rgba(31, 39, 51, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 39, 51, 0.15) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+  background-position: center center;
+  pointer-events: none;
+}
+
+/* Blueprint Dot Grid Accent */
+.blueprint-dots {
+  background-image: radial-gradient(rgba(232, 163, 61, 0.15) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Custom Focus Ring */
+*:focus-visible {
+  outline: 2px solid #E8A33D;
+  outline-offset: 4px;
+}
+
+/* Selection Highlight */
+::selection {
+  background-color: rgba(232, 163, 61, 0.25);
+  color: #EDEFF3;
 }
