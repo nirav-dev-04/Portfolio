@@ -18,7 +18,7 @@ export default function Footer() {
             <span className="text-blueprint-amber animate-pulse">_</span>
           </Link>
           <p className="text-xs text-blueprint-text-secondary font-mono tracking-wide text-center md:text-left">
-            Nirav Mathukiya &mdash; Java Backend Developer &middot; Built {currentYear}
+            Nirav Mathukiya &mdash; ASP.NET Core Developer &middot; Built {currentYear}
           </p>
         </div>
 

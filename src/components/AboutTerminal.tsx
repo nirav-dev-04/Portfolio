@@ -126,11 +126,11 @@ MBBBB*****d{-_]1}}fYObhahhhhkpwQYbaoBBBMMMMMMM
               </div>
               <div>
                 <span className="text-blueprint-amber font-bold">IDE:</span>
-                <span className="text-blueprint-text-primary ml-2">IntelliJ IDEA, VS Code 1.96</span>
+                <span className="text-blueprint-text-primary ml-2">Visual Studio 2022, VS Code 1.96</span>
               </div>
               <div>
                 <span className="text-blueprint-amber font-bold">Shell:</span>
-                <span className="text-blueprint-text-primary ml-2">Java 21, Spring Boot 3.x</span>
+                <span className="text-blueprint-text-primary ml-2">C#, ASP.NET Core</span>
               </div>
               <div>
                 <span className="text-blueprint-amber font-bold">Foundations:</span>
@@ -161,7 +161,7 @@ MBBBB*****d{-_]1}}fYObhahhhhkpwQYbaoBBBMMMMMMM
               </div>
               <div>
                 <span className="text-blueprint-amber font-bold">Docker Packaging:</span>
-                <span className="text-blueprint-text-primary ml-2">Multi-stage Containerized (175MB JRE)</span>
+                <span className="text-blueprint-text-primary ml-2">Multi-stage Containerized (175MB)</span>
               </div>
               <div>
                 <span className="text-blueprint-amber font-bold">CI/CD Engine:</span>
@@ -169,7 +169,7 @@ MBBBB*****d{-_]1}}fYObhahhhhkpwQYbaoBBBMMMMMMM
               </div>
               <div>
                 <span className="text-blueprint-amber font-bold">Testing Frame:</span>
-                <span className="text-blueprint-text-primary ml-2">JUnit 5, Mockito, Playwright</span>
+                <span className="text-blueprint-text-primary ml-2">xUnit, Moq, Playwright</span>
               </div>
             </div>
           )}

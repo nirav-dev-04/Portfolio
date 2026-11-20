@@ -74,17 +74,17 @@ export default function HomePage() {
     {
       category: "Languages",
       icon: <Cpu size={16} className="text-blueprint-amber" />,
-      skills: ["Java", "JavaScript", "SQL", "HTML5", "CSS3"]
+      skills: ["C#", "SQL", "JavaScript", "TypeScript", "HTML5", "CSS3"]
     },
     {
       category: "Backend Frameworks",
       icon: <Server size={16} className="text-blueprint-amber" />,
-      skills: ["Spring Boot", "Spring MVC", "Spring Data JPA", "Spring Security", "REST APIs", "JWT Authentication"]
+      skills: ["ASP.NET Core", "ASP.NET Core Web API", "ASP.NET Core MVC", "Entity Framework Core", "ASP.NET Core Identity", "REST APIs", "JWT Authentication", "SignalR"]
     },
     {
       category: "Data & Caching",
       icon: <Database size={16} className="text-blueprint-amber" />,
-      skills: ["MySQL", "PostgreSQL", "Hibernate ORM", "Redis"]
+      skills: ["SQL Server", "PostgreSQL", "Entity Framework Core", "Redis", "Dapper"]
     },
     {
       category: "Cloud & Infrastructure",
@@ -104,7 +104,7 @@ export default function HomePage() {
     {
       category: "Testing & Tooling",
       icon: <Cpu size={16} className="text-blueprint-amber" />,
-      skills: ["JUnit 5", "Postman", "Git", "Maven", "IntelliJ IDEA"]
+      skills: ["xUnit", "Moq", "Postman", "Git", "Visual Studio 2022", "VS Code"]
     }
   ];
 
@@ -126,7 +126,7 @@ export default function HomePage() {
 
             <div className="space-y-2">
               <div className="font-mono text-xs uppercase tracking-widest text-blueprint-text-secondary">
-                JAVA BACKEND DEVELOPER
+                ASP.NET CORE DEVELOPER
               </div>
               <h1 className="text-5xl md:text-7xl font-display font-extrabold tracking-tight text-blueprint-text-primary">
                 Nirav Mathukiya
@@ -242,7 +242,7 @@ export default function HomePage() {
                 
                 {/* Tech stack badges */}
                 <div className="flex flex-wrap gap-1.5 mt-6">
-                  {["Spring Boot", "Next.js", "Redis", "AWS Lambda", "S3"].map((tech) => (
+                  {["ASP.NET Core", "Next.js", "Redis", "AWS Lambda", "S3"].map((tech) => (
                     <span key={tech} className="px-2 py-0.5 rounded bg-blueprint-bg border border-blueprint-border font-mono text-[9px] text-blueprint-text-secondary">
                       {tech}
                     </span>
@@ -257,7 +257,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center gap-4 text-xs font-mono border-t border-blueprint-border/30 pt-3">
                   <a
-                    href="https://github.com/nirav-dev-04"
+                    href="https://github.com/nirav-dev-04/Coursify---Course-Learning-Platform"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blueprint-text-secondary hover:text-blueprint-amber flex items-center gap-1 transition-colors"
@@ -306,12 +306,12 @@ export default function HomePage() {
                 </Link>
                 
                 <p className="text-xs text-blueprint-text-secondary mt-2 leading-relaxed">
-                  Real-time academic proctoring pipeline utilizing WebSockets with STOMP, Flyway schema migrations, and Bucket4j rate limiting.
+                  Real-time academic proctoring pipeline utilizing WebSockets with SignalR, EF Core schema migrations, and token-bucket rate limiting.
                 </p>
 
                 {/* Tech stack badges */}
                 <div className="flex flex-wrap gap-1.5 mt-6">
-                  {["Spring Boot", "WebSockets", "STOMP", "PostgreSQL", "Bucket4j"].map((tech) => (
+                  {["ASP.NET Core", "SignalR", "WebSockets", "PostgreSQL", "Redis"].map((tech) => (
                     <span key={tech} className="px-2 py-0.5 rounded bg-blueprint-bg border border-blueprint-border font-mono text-[9px] text-blueprint-text-secondary">
                       {tech}
                     </span>
@@ -326,7 +326,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-center gap-4 text-xs font-mono border-t border-blueprint-border/30 pt-3">
                   <a
-                    href="https://github.com/nirav-dev-04"
+                    href="https://github.com/nirav-dev-04/ExamShield"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blueprint-text-secondary hover:text-blueprint-amber flex items-center gap-1 transition-colors"
@@ -366,12 +366,12 @@ export default function HomePage() {
                 </Link>
                 
                 <p className="text-xs text-blueprint-text-secondary mt-2 leading-relaxed">
-                  Role-based multi-tier portal (Students, Rectors, Admins) secured with Spring Security, with document storage and multi-stage Docker.
+                  Role-based multi-tier portal (Students, Rectors, Admins) secured with ASP.NET Core Identity &amp; JWT, with document storage and multi-stage Docker.
                 </p>
 
                 {/* Tech stack badges */}
                 <div className="flex flex-wrap gap-1.5 mt-6">
-                  {["Spring Security", "React/Vite", "Docker", "PostgreSQL", "Cloudinary"].map((tech) => (
+                  {["ASP.NET Core", "ASP.NET Core Identity", "React/Vite", "Docker", "PostgreSQL", "Cloudinary"].map((tech) => (
                     <span key={tech} className="px-2 py-0.5 rounded bg-blueprint-bg border border-blueprint-border font-mono text-[9px] text-blueprint-text-secondary">
                       {tech}
                     </span>
@@ -492,13 +492,13 @@ export default function HomePage() {
                   <span className="font-mono text-[10px] text-blueprint-text-secondary">May - Jun 2026</span>
                 </div>
                 <h3 className="text-base font-display font-bold text-blueprint-text-primary group-hover:text-blueprint-amber transition-colors">
-                  Java Developer Intern
+                  .NET Backend Developer Intern
                 </h3>
                 <p className="text-xs text-blueprint-text-secondary mt-1">
                   Codec Technologies Pvt. Ltd.
                 </p>
                 <p className="text-[11px] text-blueprint-text-secondary/70 mt-3 leading-relaxed">
-                  Completed a 1-Month AICTE & ACTE approved internship program working on core Java development, backend logic, and API architecture integrations.
+                  Completed a 1-Month AICTE &amp; ACTE approved internship program working on core .NET backend development, C# architecture, and RESTful API integrations.
                 </p>
               </div>
 
@@ -659,7 +659,7 @@ export default function HomePage() {
                 Unlike developers who start from the frontend UI and build backward, I start at the core pipeline. I am driven by the engineering details: optimizing SQL queries, implementing cache invalidation schemas, securing APIs through HTTP-only credentials, and verifying infrastructure performance.
               </p>
               <p>
-                My work centers on writing reliable, type-safe Java code, maintaining clean architectural layers (SOLID, MVC), and leveraging robust infrastructure configurations to prevent downtime and race conditions.
+                My work centers on writing reliable, type-safe C# code, maintaining clean architectural layers (SOLID, MVC), and leveraging robust infrastructure configurations to prevent downtime and race conditions.
               </p>
             </div>
             
@@ -707,7 +707,7 @@ export default function HomePage() {
               Get in Touch
             </h2>
             <p className="text-base text-blueprint-text-secondary leading-relaxed max-w-lg">
-              I am open to backend developer roles, internships, and collaboration opportunities. Reach out via email, phone, or connect on LinkedIn.
+              I am open to .NET and ASP.NET Core developer roles, internships, and collaboration opportunities. Reach out via email, phone, or connect on LinkedIn.
             </p>
 
             <div className="space-y-4 font-mono text-sm">

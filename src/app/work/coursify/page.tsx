@@ -5,7 +5,7 @@ import { Github, ExternalLink, ArrowLeft, ShieldCheck, CheckCircle2 } from "luci
 
 export const metadata: Metadata = {
   title: "Coursify Case Study | Nirav Mathukiya",
-  description: "Systems architectural deep-dive into Coursify, a secure HLS video delivery and payment platform built with Next.js, Spring Boot, Redis, PostgreSQL, and AWS.",
+  description: "Systems architectural deep-dive into Coursify, a secure HLS video delivery and payment platform built with Next.js, ASP.NET Core, Redis, PostgreSQL, and AWS.",
 };
 
 export default function CoursifyCaseStudy() {
@@ -33,7 +33,7 @@ export default function CoursifyCaseStudy() {
 
         {/* Tech tags */}
         <div className="flex flex-wrap gap-2 pt-2">
-          {["Spring Boot", "Next.js", "PostgreSQL", "Redis", "AWS (S3, Lambda, MediaConvert, CloudFront)", "Razorpay"].map((tech) => (
+          {["ASP.NET Core", "Next.js", "PostgreSQL", "Redis", "AWS (S3, Lambda, MediaConvert, CloudFront)", "Razorpay"].map((tech) => (
             <span key={tech} className="px-3 py-1 rounded bg-blueprint-surface border border-blueprint-border font-mono text-xs text-blueprint-text-secondary">
               {tech}
             </span>
@@ -43,7 +43,7 @@ export default function CoursifyCaseStudy() {
         {/* Project Links */}
         <div className="flex flex-wrap gap-4 pt-4">
           <a
-            href="https://github.com/nirav-dev-04"
+            href="https://github.com/nirav-dev-04/Coursify---Course-Learning-Platform"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-blueprint-text-primary hover:text-blueprint-amber rounded border border-blueprint-border hover:border-blueprint-amber/80 bg-blueprint-surface/40 hover:bg-blueprint-surface/80 transition-all"
@@ -125,9 +125,9 @@ export default function CoursifyCaseStudy() {
                 <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">Segment Player</div>
               </div>
 
-              {/* Node: Spring Boot API */}
+              {/* Node: ASP.NET Core API */}
               <div className="absolute top-[35px] left-[220px] w-[120px] bg-blueprint-bg border border-blueprint-border rounded p-3 text-center shadow-md">
-                <div className="font-bold text-blueprint-amber text-[10px]">Spring Boot API</div>
+                <div className="font-bold text-blueprint-amber text-[10px]">ASP.NET Core API</div>
                 <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">Core Business Logic</div>
               </div>
 
@@ -163,7 +163,7 @@ export default function CoursifyCaseStudy() {
             </div>
           </div>
           <div className="text-[10px] text-blueprint-text-secondary/80 border-t border-blueprint-border/60 pt-3">
-            <strong>Flow Description:</strong> Client requests videos through authenticated CloudFront distribution via HTTP-only Cookies. User updates and video progress writes pass through Spring Boot to Redis for cache buffering before flushing to PostgreSQL.
+            <strong>Flow Description:</strong> Client requests videos through authenticated CloudFront distribution via HTTP-only Cookies. User updates and video progress writes pass through ASP.NET Core to Redis for cache buffering before flushing to PostgreSQL.
           </div>
         </div>
       </section>
@@ -207,7 +207,7 @@ export default function CoursifyCaseStudy() {
               <strong>Trade-off:</strong> Optimistic locking fails when transaction rates are high, returning generic errors and leaving requests in a half-written state.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We utilized Razorpay&apos;s API <strong>Idempotency Keys</strong> linked to generated unique order UUIDs. In the Spring Boot layer, we enforce a database <strong>pessimistic lock</strong> (`SELECT FOR UPDATE`) on the transaction log row during webhook verification. This prevents race conditions, ensuring that identical webhook triggers block safely until the first processor completes successfully.
+              <strong>Solution:</strong> We utilized Razorpay&apos;s API <strong>Idempotency Keys</strong> linked to generated unique order UUIDs. In the ASP.NET Core layer, we enforce a database <strong>pessimistic lock</strong> (`SELECT FOR UPDATE`) on the transaction log row during webhook verification. This prevents race conditions, ensuring that identical webhook triggers block safely until the first processor completes successfully.
             </p>
           </div>
 
@@ -224,7 +224,7 @@ export default function CoursifyCaseStudy() {
               <strong>Trade-off:</strong> Using CloudFront Signed URLs would require generating a unique signed URL for every single segment chunk. This creates extreme CPU load on the auth server and breaks HTML5 players that parse `.m3u8` manifests.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We implemented <strong>CloudFront Signed Cookies</strong>. When a user requests course material, the Spring Boot API verifies their enrollment and issues secure HTTP-only cookies defining wildcard access path permissions (`/video/courseId/*`). The browser player automatically sends these cookies with every `.ts` segment request, allowing low-overhead native streaming.
+              <strong>Solution:</strong> We implemented <strong>CloudFront Signed Cookies</strong>. When a user requests course material, the ASP.NET Core API verifies their enrollment and issues secure HTTP-only cookies defining wildcard access path permissions (`/video/courseId/*`). The browser player automatically sends these cookies with every `.ts` segment request, allowing low-overhead native streaming.
             </p>
           </div>
 
@@ -268,7 +268,7 @@ export default function CoursifyCaseStudy() {
                 <span className="text-blueprint-teal font-semibold">100% PASSING</span>
               </div>
               <div className="flex justify-between items-center py-1.5 border-b border-blueprint-border/60">
-                <span>JUnit 5 Coverage</span>
+                <span>xUnit Test Coverage</span>
                 <span className="text-blueprint-teal font-semibold">82% LINE COVER</span>
               </div>
               <div className="flex justify-between items-center py-1.5">
@@ -311,7 +311,7 @@ export default function CoursifyCaseStudy() {
         </Link>
 
         <a
-          href="https://github.com/nirav-dev-04"
+          href="https://github.com/nirav-dev-04/Coursify---Course-Learning-Platform"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-5 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-blueprint-text-primary hover:text-blueprint-amber rounded border border-blueprint-border hover:border-blueprint-amber/80 bg-blueprint-surface/40 hover:bg-blueprint-surface/80 transition-all"

@@ -36,7 +36,7 @@ export default function RequestLifecycle() {
 
   const nodes = [
     { id: 0, label: "Client", detail: "Browser Request", port: "HTTPS:443" },
-    { id: 1, label: "API Gateway", detail: "Rate Limiting & Auth", port: "Spring Cloud" },
+    { id: 1, label: "API Gateway", detail: "Rate Limiting & Auth", port: "Gateway" },
     { id: 2, label: "Cache (Redis)", detail: "Progress & Session Lookup", port: "PORT:6379" },
     { id: 3, label: "Database", detail: "PostgreSQL / Persistence", port: "PORT:5432" },
     { id: 4, label: "Response", detail: "200 OK (Payload)", port: "JSON" },
@@ -47,7 +47,7 @@ export default function RequestLifecycle() {
       {/* Decorative Grid Corners */}
       <div className="absolute top-2 left-2 text-[10px] text-blueprint-amber/30 select-none">{"[SYS_LIFECYCLE_DIAG]"}</div>
       <div className="absolute top-2 right-2 text-[10px] text-blueprint-text-secondary/30 select-none">v1.2.0</div>
-      <div className="absolute bottom-2 left-2 text-[8px] text-blueprint-text-secondary/20 select-none">BASED ON SPRINGBOOT RE-ENTRANT WRITES</div>
+      <div className="absolute bottom-2 left-2 text-[8px] text-blueprint-text-secondary/20 select-none">BASED ON REDIS WRITE-BACK CACHING</div>
 
       {/* Grid Overlay inside the panel */}
       <div className="absolute inset-0 blueprint-dots opacity-20 pointer-events-none" />
@@ -177,23 +177,23 @@ export default function RequestLifecycle() {
         <div className="text-[10px] font-bold text-blueprint-teal mb-1 uppercase tracking-tight">// RUNTIME LOGS:</div>
         <div className="space-y-1">
           <p className="flex justify-between">
-            <span>[2026-07-03 17:54:12] DEBUG o.s.web.servlet.DispatcherServlet - Initializing Servlet &apos;dispatcherServlet&apos;</span>
+            <span>[2026-07-03 17:54:12] DEBUG RequestPipeline - Initializing request handler</span>
             <span className="text-blueprint-teal">[INIT]</span>
           </p>
           <p className={`flex justify-between transition-colors duration-300 ${activeNode === 1 ? "text-blueprint-amber font-semibold" : ""}`}>
-            <span>[2026-07-03 17:54:13] INFO  c.n.p.filter.RateLimitFilter - Request from 192.168.1.100 - Tokens available: 9/10</span>
+            <span>[2026-07-03 17:54:13] INFO  RateLimitFilter - Request from 192.168.1.100 - Tokens available: 9/10</span>
             <span className={activeNode === 1 ? "text-blueprint-amber animate-pulse" : ""}>[GATEWAY]</span>
           </p>
           <p className={`flex justify-between transition-colors duration-300 ${activeNode === 2 ? "text-blueprint-amber font-semibold" : ""}`}>
-            <span>[2026-07-03 17:54:13] DEBUG c.n.p.service.CacheService - Fetching progress for userId: 104 - Redis HIT</span>
+            <span>[2026-07-03 17:54:13] DEBUG CacheService - Fetching progress for userId: 104 - Redis HIT</span>
             <span className={activeNode === 2 ? "text-blueprint-amber animate-pulse" : ""}>[REDIS_HIT]</span>
           </p>
           <p className={`flex justify-between transition-colors duration-300 ${activeNode === 3 ? "text-blueprint-amber font-semibold" : ""}`}>
-            <span>[2026-07-03 17:54:13] DEBUG c.n.p.repository.ProgressRepo - Flushing transaction logs to persistent DB</span>
+            <span>[2026-07-03 17:54:13] DEBUG ProgressRepo - Flushing transaction logs to persistent DB</span>
             <span className={activeNode === 3 ? "text-blueprint-amber animate-pulse" : ""}>[POSTGRES]</span>
           </p>
           <p className={`flex justify-between transition-colors duration-300 ${activeNode === 4 ? "text-blueprint-teal font-semibold" : ""}`}>
-            <span>[2026-07-03 17:54:13] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Completed 200 OK in 42ms</span>
+            <span>[2026-07-03 17:54:13] INFO  RequestPipeline - Completed 200 OK in 42ms</span>
             <span className={activeNode === 4 ? "text-blueprint-teal animate-pulse" : ""}>[HTTP_200]</span>
           </p>
         </div>

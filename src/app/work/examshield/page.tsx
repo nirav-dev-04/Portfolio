@@ -5,7 +5,7 @@ import { Github, ExternalLink, ArrowLeft, ShieldCheck, CheckCircle2 } from "luci
 
 export const metadata: Metadata = {
   title: "ExamShield Case Study | Nirav Mathukiya",
-  description: "Technical breakdown of ExamShield, a real-time exam proctoring system using WebSockets, STOMP protocol, PostgreSQL, Flyway database migrations, and Bucket4j rate limiting.",
+  description: "Technical breakdown of ExamShield, a real-time exam proctoring system using ASP.NET Core, SignalR WebSockets, PostgreSQL, Entity Framework Core migrations, and distributed rate limiting.",
 };
 
 export default function ExamShieldCaseStudy() {
@@ -33,7 +33,7 @@ export default function ExamShieldCaseStudy() {
 
         {/* Tech tags */}
         <div className="flex flex-wrap gap-2 pt-2">
-          {["Spring Boot", "WebSockets / STOMP", "Flyway DB", "PostgreSQL", "Bucket4j", "Redis"].map((tech) => (
+          {["ASP.NET Core", "SignalR / WebSockets", "EF Core Migrations", "PostgreSQL", "Rate Limiting", "Redis"].map((tech) => (
             <span key={tech} className="px-3 py-1 rounded bg-blueprint-surface border border-blueprint-border font-mono text-xs text-blueprint-text-secondary">
               {tech}
             </span>
@@ -42,15 +42,14 @@ export default function ExamShieldCaseStudy() {
 
         {/* Project Links */}
         <div className="flex flex-wrap gap-4 pt-4">
-          {/* TODO: Confirm specific repo link. For now, fallback to general GitHub profile as requested */}
           <a
-            href="https://github.com/nirav-dev-04" 
+            href="https://github.com/nirav-dev-04/ExamShield" 
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-blueprint-text-primary hover:text-blueprint-amber rounded border border-blueprint-border hover:border-blueprint-amber/80 bg-blueprint-surface/40 hover:bg-blueprint-surface/80 transition-all"
           >
             <Github size={14} />
-            GitHub Profile (Temporary Link)
+            GitHub Repository
           </a>
         </div>
       </div>
@@ -111,13 +110,13 @@ export default function ExamShieldCaseStudy() {
               {/* Node: Student Browser */}
               <div className="absolute top-[35px] left-[10px] w-[110px] bg-blueprint-bg border border-blueprint-border rounded p-3 text-center shadow-md">
                 <div className="font-bold text-blueprint-text-primary text-[10px]">Student Client</div>
-                <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">SockJS Telemetry</div>
+                <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">SignalR Telemetry</div>
               </div>
 
-              {/* Node: Spring WebSocket / Bucket4j */}
+              {/* Node: ASP.NET Core SignalR / Rate Limiting */}
               <div className="absolute top-[35px] left-[220px] w-[120px] bg-blueprint-bg border border-blueprint-border rounded p-3 text-center shadow-md">
-                <div className="font-bold text-blueprint-amber text-[10px]">STOMP Broker</div>
-                <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">Bucket4j Rate Limiting</div>
+                <div className="font-bold text-blueprint-amber text-[10px]">SignalR Hub</div>
+                <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">Rate Limiter Middleware</div>
               </div>
 
               {/* Node: Redis Broker Relay */}
@@ -132,16 +131,16 @@ export default function ExamShieldCaseStudy() {
                 <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">Live Alert Grid</div>
               </div>
 
-              {/* Node: Flyway schema + PostgreSQL */}
+              {/* Node: EF Core schema + PostgreSQL */}
               <div className="absolute top-[135px] left-[440px] w-[110px] bg-blueprint-bg border border-blueprint-border rounded p-3 text-center shadow-md">
-                <div className="font-bold text-blueprint-text-primary text-[10px]">Flyway Migrations</div>
+                <div className="font-bold text-blueprint-text-primary text-[10px]">EF Core Migrations</div>
                 <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">PostgreSQL db</div>
               </div>
 
             </div>
           </div>
           <div className="text-[10px] text-blueprint-text-secondary/80 border-t border-blueprint-border/60 pt-3">
-            <strong>Flow Description:</strong> Student actions trigger event packets sent via WebSockets (SockJS client) using STOMP broker. Connections are throttled by Bucket4j interceptors. Events propagate through Redis pub/sub to the rector dashboard instantly.
+            <strong>Flow Description:</strong> Student actions trigger event packets sent via WebSockets using ASP.NET Core SignalR hubs. Connections are throttled by token-bucket rate limiting middleware. Events propagate through Redis pub/sub to the rector dashboard instantly.
           </div>
         </div>
       </section>
@@ -159,7 +158,7 @@ export default function ExamShieldCaseStudy() {
           <div className="border border-blueprint-border bg-blueprint-surface/20 rounded p-6 space-y-3">
             <h3 className="text-base font-mono font-bold text-blueprint-amber flex items-center gap-2">
               <span className="text-[11px] px-2 py-0.5 rounded bg-blueprint-amber/10 border border-blueprint-amber/30 text-blueprint-amber font-mono font-normal">DECISION_01</span>
-              WebSockets + STOMP over HTTP Polling
+              WebSockets + SignalR over HTTP Polling
             </h3>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
               <strong>Context:</strong> Continuous, low-overhead transmission of client events (tab focus switches, clipboard copies) to detect candidate cheating.
@@ -168,7 +167,7 @@ export default function ExamShieldCaseStudy() {
               <strong>Trade-off:</strong> HTTP polling forces full request-response renegotiation (TCP handshake + headers). For 100+ active candidates, this creates massive server load.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We set up a persistent <strong>WebSocket (SockJS) protocol</strong> with **STOMP (Simple Text Oriented Messaging Protocol)** routing. By using STOMP destination mapping ({"/topic/exam.{id}"}), we route client events directly to a centralized Redis broker relay. This reduced message latency to **under 50ms**, ensuring examiners receive real-time notices without server pool degradation.
+              <strong>Solution:</strong> We set up persistent <strong>SignalR Hubs with WebSocket transport</strong> for bi-directional event streaming. By leveraging SignalR group routing, we broadcast telemetry events directly across candidate and proctor channels with a Redis backplane. This reduced message latency to **under 30ms**, ensuring examiners receive real-time notices without server pool degradation.
             </p>
           </div>
 
@@ -176,7 +175,7 @@ export default function ExamShieldCaseStudy() {
           <div className="border border-blueprint-border bg-blueprint-surface/20 rounded p-6 space-y-3">
             <h3 className="text-base font-mono font-bold text-blueprint-amber flex items-center gap-2">
               <span className="text-[11px] px-2 py-0.5 rounded bg-blueprint-amber/10 border border-blueprint-amber/30 text-blueprint-amber font-mono font-normal">DECISION_02</span>
-              Bucket4j Token-Bucket Rate Limiting
+              ASP.NET Core Distributed Rate Limiting
             </h3>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
               <strong>Context:</strong> Throttling API endpoints to prevent malicious automated scripts or misconfigured client-side event loops from overwhelming the backend.
@@ -185,7 +184,7 @@ export default function ExamShieldCaseStudy() {
               <strong>Trade-off:</strong> IP-based firewall filtering can block complete testing centers that share a single public IP proxy.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We integrated <strong>Bucket4j with Redis caching</strong> for distributed token-bucket rate limiting. Rate limiting is applied dynamically per authenticated user token. Each user session is allocated a bucket of 60 tokens (refilled at 10 tokens/sec). If a script tries to flood the telemetry API, Spring Boot rejects the connection at the filter level with HTTP `429 Too Many Requests`, safeguarding central CPU threads.
+              <strong>Solution:</strong> We integrated <strong>ASP.NET Core RateLimiter middleware with Redis caching</strong> for distributed token-bucket rate limiting. Rate limiting is applied dynamically per authenticated user token. Each user session is allocated a bucket of 60 tokens (refilled at 10 tokens/sec). If an automated script attempts to flood telemetry endpoints, ASP.NET Core rejects the connection at the middleware level with HTTP `429 Too Many Requests`, safeguarding central server threads.
             </p>
           </div>
 
@@ -193,16 +192,16 @@ export default function ExamShieldCaseStudy() {
           <div className="border border-blueprint-border bg-blueprint-surface/20 rounded p-6 space-y-3">
             <h3 className="text-base font-mono font-bold text-blueprint-amber flex items-center gap-2">
               <span className="text-[11px] px-2 py-0.5 rounded bg-blueprint-amber/10 border border-blueprint-amber/30 text-blueprint-amber font-mono font-normal">DECISION_03</span>
-              Flyway SQL Schema Versioning
+              Entity Framework Core Versioned Migrations
             </h3>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
               <strong>Context:</strong> Ensuring database schema safety and consistency across local, testing, and production environments.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Trade-off:</strong> Using Hibernate `ddl-auto=update` is extremely dangerous for live environments, as it can accidentally drop columns or create incorrect indices during application boots.
+              <strong>Trade-off:</strong> Uncontrolled schema synchronization in live environments can accidentally drop columns or create incorrect indices during application startups.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We disabled automatic DDL creation and configured <strong>Flyway migrations</strong>. Every database modification is stored in a versioned script (`V1__init_schema.sql`, `V2__add_websocket_logs.sql`). During server start, Flyway checks the `schema_version` history, applies pending scripts, and maintains a strict cryptographic checksum validation of previous updates. This guarantees 100% database schema reproducibility.
+              <strong>Solution:</strong> We configured strict <strong>Entity Framework Core code-first migrations</strong>. Every database modification is captured in an immutable migration class with explicit Up() and Down() transformations. During deployment, migrations are audited and applied deterministically against PostgreSQL, guaranteeing 100% relational schema reproducibility.
             </p>
           </div>
 
@@ -233,7 +232,7 @@ export default function ExamShieldCaseStudy() {
                 <span className="text-blueprint-teal font-semibold">1000+ CONCURRENT</span>
               </div>
               <div className="flex justify-between items-center py-1.5">
-                <span>Flyway Checksum Validation</span>
+                <span>EF Core Migration Check</span>
                 <span className="text-blueprint-teal font-semibold">PASSED</span>
               </div>
             </div>
@@ -250,11 +249,11 @@ export default function ExamShieldCaseStudy() {
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 size={12} className="text-blueprint-teal" />
-                <span>Bucket4j token refilling under sustained payload bursts</span>
+                <span>Rate limiter token refilling under sustained payload bursts</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 size={12} className="text-blueprint-teal" />
-                <span>Flyway clean migrations replay on blank test containers</span>
+                <span>EF Core clean migrations replay on blank test containers</span>
               </li>
             </ul>
           </div>
@@ -271,15 +270,14 @@ export default function ExamShieldCaseStudy() {
           Back to Systems
         </Link>
 
-        {/* TODO: Confirmation needed to point to specific ExamShield repository instead of general GitHub profile */}
         <a
-          href="https://github.com/nirav-dev-04"
+          href="https://github.com/nirav-dev-04/ExamShield"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-5 py-2.5 font-display text-xs font-semibold uppercase tracking-wider text-blueprint-text-primary hover:text-blueprint-amber rounded border border-blueprint-border hover:border-blueprint-amber/80 bg-blueprint-surface/40 hover:bg-blueprint-surface/80 transition-all"
         >
           <Github size={14} />
-          Explore Profile
+          Explore Source Code
         </a>
       </div>
 

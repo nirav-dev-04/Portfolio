@@ -5,7 +5,7 @@ import { Github, ExternalLink, ArrowLeft, ShieldCheck, CheckCircle2 } from "luci
 
 export const metadata: Metadata = {
   title: "Smart Hostel Management Case Study | Nirav Mathukiya",
-  description: "Technical breakdown of the Smart Hostel Management System, featuring Spring Security role-based authorization, multi-stage Docker builds, Cloudinary integration, and PostgreSQL.",
+  description: "Technical breakdown of the Smart Hostel Management System, featuring ASP.NET Core Identity role-based authorization, multi-stage Docker builds, Cloudinary integration, and PostgreSQL.",
 };
 
 export default function HostelManagementCaseStudy() {
@@ -33,7 +33,7 @@ export default function HostelManagementCaseStudy() {
 
         {/* Tech tags */}
         <div className="flex flex-wrap gap-2 pt-2">
-          {["Spring Security", "React.js / Vite", "PostgreSQL", "Docker", "Cloudinary", "REST API"].map((tech) => (
+          {["ASP.NET Core", "ASP.NET Core Identity", "React.js / Vite", "PostgreSQL", "Docker", "Cloudinary", "REST API"].map((tech) => (
             <span key={tech} className="px-3 py-1 rounded bg-blueprint-surface border border-blueprint-border font-mono text-xs text-blueprint-text-secondary">
               {tech}
             </span>
@@ -87,7 +87,7 @@ export default function HostelManagementCaseStudy() {
               <strong>Privilege Escalation:</strong> Without a strict role hierarchy, malicious students can craft API payloads to approve their own room assignments or access sensitive medical files.
             </li>
             <li>
-              <strong>Bloated Container Images:</strong> Including build compilers, Maven repositories, and source code files inside production Docker images leads to 800MB+ image sizes, increasing cold-boot times and exposing vulnerability vectors.
+              <strong>Bloated Container Images:</strong> Including build compilers, .NET SDKs, and source code files inside production Docker images leads to 800MB+ image sizes, increasing cold-boot times and exposing vulnerability vectors.
             </li>
             <li>
               <strong>Local Binary Bloat:</strong> Storing uploaded student documents (e.g. proof of IDs, fee receipts) on local VM disks slows server backups, leads to disk capacity failures, and breaks in autoscaling environments.
@@ -133,9 +133,9 @@ export default function HostelManagementCaseStudy() {
                 <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">Vite + Tailwind</div>
               </div>
 
-              {/* Node: Spring Security Filter */}
+              {/* Node: ASP.NET Core Identity Filter */}
               <div className="absolute top-[90px] left-[220px] w-[120px] bg-blueprint-bg border border-blueprint-border rounded p-3 text-center shadow-md">
-                <div className="font-bold text-blueprint-amber text-[10px]">Spring Security</div>
+                <div className="font-bold text-blueprint-amber text-[10px]">ASP.NET Core Identity</div>
                 <div className="text-[8px] text-blueprint-text-secondary/70 mt-1">JWT Authenticator</div>
               </div>
 
@@ -166,7 +166,7 @@ export default function HostelManagementCaseStudy() {
             </div>
           </div>
           <div className="text-[10px] text-blueprint-text-secondary/80 border-t border-blueprint-border/60 pt-3">
-            <strong>Flow Description:</strong> React client sends JWT token in headers. Spring Security filters verify access permissions dynamically based on endpoint hierarchy routing (Admin, Rector, Student) before granting database write access.
+            <strong>Flow Description:</strong> React client sends JWT token in headers. ASP.NET Core authorization middleware verifies access permissions dynamically based on endpoint hierarchy routing (Admin, Rector, Student) before granting database write access.
           </div>
         </div>
       </section>
@@ -184,23 +184,20 @@ export default function HostelManagementCaseStudy() {
           <div className="border border-blueprint-border bg-blueprint-surface/20 rounded p-6 space-y-3">
             <h3 className="text-base font-mono font-bold text-blueprint-amber flex items-center gap-2">
               <span className="text-[11px] px-2 py-0.5 rounded bg-blueprint-amber/10 border border-blueprint-amber/30 text-blueprint-amber font-mono font-normal">DECISION_01</span>
-              Role-Based Endpoint Mapping & Spring Security
+              Role-Based Endpoint Mapping &amp; ASP.NET Core Identity
             </h3>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
               <strong>Context:</strong> Setting up clear boundaries to block student requests from accessing admin and rector database services.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Trade-off:</strong> Method-level security annotations can cause logic leaks if an engineer forgets to add annotations to a new endpoint controller.
+              <strong>Trade-off:</strong> Method-level security attributes can cause logic leaks if an engineer forgets to add attributes to a new endpoint controller.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We enforced strict path-based route mappings in `SecurityFilterChain`:
+              <strong>Solution:</strong> We enforced strict policy-based route authorization in ASP.NET Core:
               <code className="block bg-[#0A0D14] p-2 rounded mt-2 border border-blueprint-border text-[9px] text-blueprint-amber leading-normal">
-                http.authorizeHttpRequests(auth &rarr; auth<br />
-                &nbsp;&nbsp;.requestMatchers(&quot;/api/v1/admin/**&quot;).hasRole(&quot;ADMIN&quot;)<br />
-                &nbsp;&nbsp;.requestMatchers(&quot;/api/v1/rector/**&quot;).hasAnyRole(&quot;RECTOR&quot;, &quot;ADMIN&quot;)<br />
-                &nbsp;&nbsp;.requestMatchers(&quot;/api/v1/student/**&quot;).hasRole(&quot;STUDENT&quot;)<br />
-                &nbsp;&nbsp;.anyRequest().authenticated()
-              );
+                app.MapGroup(&quot;/api/v1/admin&quot;).RequireAuthorization(&quot;AdminOnly&quot;);<br />
+                app.MapGroup(&quot;/api/v1/rector&quot;).RequireAuthorization(&quot;RectorOrAdmin&quot;);<br />
+                app.MapGroup(&quot;/api/v1/student&quot;).RequireAuthorization(&quot;StudentOnly&quot;);
               </code>
               This centralizes security audits, preventing endpoint exposure even if method annotations are missing.
             </p>
@@ -216,10 +213,10 @@ export default function HostelManagementCaseStudy() {
               <strong>Context:</strong> Minimizing deployment artifact size and securing the runtime container against injection attacks.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Trade-off:</strong> Building the JAR inside a container requires JDK and Maven, which bloats the image size and leaves building tools in production.
+              <strong>Trade-off:</strong> Building the application inside a container requires the full .NET SDK, which bloats the image size and leaves building tools in production.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We configured a <strong>multi-stage Dockerfile</strong>. Stage 1 (`build`) utilizes a full Maven JDK image to compile the Java JAR. Stage 2 (`runtime`) uses a minimal Alpine Eclipse Temurin JRE image, copying *only* the compiled JAR. This reduced container size from <strong>850MB to 175MB</strong> and completely removed compiler utilities from the runtime environment.
+              <strong>Solution:</strong> We configured a <strong>multi-stage Dockerfile</strong>. Stage 1 (`build`) utilizes the full .NET 8 SDK image to restore NuGet packages and compile the binaries. Stage 2 (`runtime`) uses a minimal Alpine ASP.NET Core runtime image, copying *only* the compiled release binaries. This reduced container size from <strong>850MB to 175MB</strong> and completely removed compiler utilities from the runtime environment.
             </p>
           </div>
 
@@ -233,10 +230,10 @@ export default function HostelManagementCaseStudy() {
               <strong>Context:</strong> Storing user proof of identity files securely without bogging down database transactional updates.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Trade-off:</strong> Direct client-to-Cloudinary uploads bypass server validation, while proxying files through Spring Boot increases server RAM and disk IO.
+              <strong>Trade-off:</strong> Direct client-to-Cloudinary uploads bypass server validation, while proxying files through ASP.NET Core increases server RAM and disk IO.
             </p>
             <p className="text-xs text-blueprint-text-secondary leading-normal">
-              <strong>Solution:</strong> We set up **signed Cloudinary uploads**. When a student requests a file upload, Spring Boot verifies their token, generates a cryptographic signature containing upload rules (file format, size limits, expiration), and sends it to the React client. The client uploads the file directly to Cloudinary using this signature. Cloudinary returns a secure URL which is saved to PostgreSQL, ensuring low server memory usage.
+              <strong>Solution:</strong> We set up **signed Cloudinary uploads**. When a student requests a file upload, ASP.NET Core verifies their token, generates a cryptographic signature containing upload rules (file format, size limits, expiration), and sends it to the React client. The client uploads the file directly to Cloudinary using this signature. Cloudinary returns a secure URL which is saved to PostgreSQL, ensuring low server memory usage.
             </p>
           </div>
 
