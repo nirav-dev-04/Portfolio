@@ -155,7 +155,6 @@ MBBBB*****d{-_]1}}fYObhahhhhkpwQYbaoBBBMMMMMMM
                 <span className="text-blueprint-amber font-bold">Primary Repos:</span>
                 <span className="text-blueprint-text-primary ml-2">
                   <a href="#work" className="hover:text-blueprint-amber underline transition-colors">Coursify</a>,{" "}
-                  <a href="#work" className="hover:text-blueprint-amber underline transition-colors">ExamShield</a>,{" "}
                   <a href="#work" className="hover:text-blueprint-amber underline transition-colors">SmartHostel</a>
                 </span>
               </div>

@@ -215,7 +215,7 @@ export default function HomePage() {
           </p>
         </FadeInWhenInView>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Project 1: Coursify */}
           <FadeInWhenInView delay={0.1}>
             <div className="h-full bg-blueprint-surface border border-blueprint-border rounded p-6 flex flex-col justify-between transition-all duration-300 hover:border-blueprint-amber hover:shadow-[0_4px_20px_rgba(232,163,61,0.08)] hover:-translate-y-1.5">
@@ -285,68 +285,8 @@ export default function HomePage() {
             </div>
           </FadeInWhenInView>
 
-          {/* Project 2: ExamShield */}
+          {/* Project 2: Smart Hostel Management System */}
           <FadeInWhenInView delay={0.2}>
-            <div className="h-full bg-blueprint-surface border border-blueprint-border rounded p-6 flex flex-col justify-between transition-all duration-300 hover:border-blueprint-amber hover:shadow-[0_4px_20px_rgba(232,163,61,0.08)] hover:-translate-y-1.5">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-[10px] text-blueprint-amber uppercase tracking-wider flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blueprint-amber" />
-                    Final Year Project
-                  </span>
-                  <Link href="/work/examshield" className="text-blueprint-text-secondary hover:text-blueprint-amber transition-colors" title="View Case Study">
-                    <ArrowUpRight size={16} />
-                  </Link>
-                </div>
-                
-                <Link href="/work/examshield" className="group/title block">
-                  <h3 className="text-xl font-display font-bold tracking-tight text-blueprint-text-primary group-hover/title:text-blueprint-amber transition-colors">
-                    ExamShield
-                  </h3>
-                </Link>
-                
-                <p className="text-xs text-blueprint-text-secondary mt-2 leading-relaxed">
-                  Real-time academic proctoring pipeline utilizing WebSockets with SignalR, EF Core schema migrations, and token-bucket rate limiting.
-                </p>
-
-                {/* Tech stack badges */}
-                <div className="flex flex-wrap gap-1.5 mt-6">
-                  {["ASP.NET Core", "SignalR", "WebSockets", "PostgreSQL", "Redis"].map((tech) => (
-                    <span key={tech} className="px-2 py-0.5 rounded bg-blueprint-bg border border-blueprint-border font-mono text-[9px] text-blueprint-text-secondary">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="border-t border-blueprint-border/60 mt-6 pt-4 flex flex-col gap-3">
-                <div className="flex justify-between items-center text-[10px] font-mono">
-                  <span className="text-blueprint-text-secondary">SYS_METRIC:</span>
-                  <span className="text-blueprint-amber font-semibold">100MS LATENCY MAX</span>
-                </div>
-                <div className="flex items-center gap-4 text-xs font-mono border-t border-blueprint-border/30 pt-3">
-                  <a
-                    href="https://github.com/nirav-dev-04/ExamShield"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blueprint-text-secondary hover:text-blueprint-amber flex items-center gap-1 transition-colors"
-                  >
-                    <Github size={12} />
-                    Code
-                  </a>
-                  <Link
-                    href="/work/examshield"
-                    className="text-blueprint-amber hover:underline ml-auto flex items-center gap-0.5"
-                  >
-                    Specs &rarr;
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </FadeInWhenInView>
-
-          {/* Project 3: Hostel Management */}
-          <FadeInWhenInView delay={0.3}>
             <div className="h-full bg-blueprint-surface border border-blueprint-border rounded p-6 flex flex-col justify-between transition-all duration-300 hover:border-blueprint-amber hover:shadow-[0_4px_20px_rgba(232,163,61,0.08)] hover:-translate-y-1.5">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -361,7 +301,7 @@ export default function HomePage() {
                 
                 <Link href="/work/hostel-management" className="group/title block">
                   <h3 className="text-xl font-display font-bold tracking-tight text-blueprint-text-primary group-hover/title:text-blueprint-amber transition-colors">
-                    Smart Hostel Management
+                    Smart Hostel Management System
                   </h3>
                 </Link>
                 
@@ -404,7 +344,7 @@ export default function HomePage() {
                     Code (FE)
                   </a>
                   <a
-                    href="https://hostel-managment-frontend.vercel.app"
+                    href="https://hostel-managment-frontend.vercel.app/login"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blueprint-text-secondary hover:text-blueprint-amber flex items-center gap-1 transition-colors"
